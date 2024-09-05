@@ -1,49 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
+import { MyForm } from "./MyForm";
 
-// Component using React.memo
-const UsingMemo = React.memo(function ExpensiveComponent({
-  data,
-}: {
-  data: string;
-}) {
-  console.log("Rendering Using Memo");
-  return <div>{data}</div>;
-});
+function Function_components() {
+  const [count, setCount] = React.useState(0);
+  const [data, setData] = React.useState(0);
 
-// Component not using React.memo
-const NotUsingMemo = function ExpensiveComponent({ data }: { data: string }) {
-  console.log("Rendering Not Using Memo");
-
-  return <div>{data}</div>;
-};
-
-interface MyFormProps {
-  value: number;
-}
-
-const MyForm: React.FC<MyFormProps> = ({ value }) => {
-  const [selectedComponent, setSelectedComponent] = useState("UsingMemo");
-  const data = `Expensive Data: ${value}`;
-
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedComponent(event.target.value);
+  // Function to clear console and reset state
+  const handleReset = () => {
+    console.clear(); // Clear the console
+    setCount(0); // Reset count
+    setData(0); // Reset data
   };
 
-  // Select component to render based on state
-  const ComponentToRender =
-    selectedComponent === "UsingMemo" ? UsingMemo : NotUsingMemo;
-
   return (
-    <form>
-      <h2>Open a new console in the web browser</h2>
+    <>
+      <MyForm value={data} />
 
-      <select value={selectedComponent} onChange={handleChange}>
-        <option value="UsingMemo">Using Memo</option>
-        <option value="NotUsingMemo">Not Using Memo</option>
-      </select>
-      <ComponentToRender data={data} />
-    </form>
+      <button onClick={() => setCount(count + 1)}>
+        Increment Count: {count}
+      </button>
+      <button onClick={() => setData(data + 1)}>Change Data: {data}</button>
+      <button onClick={handleReset}>Reset Everything</button>
+      <p>
+        To ensure you can see the effects of clearing the console, please
+        disable the "Preserve log" option in your browser's developer tools.
+      </p>
+      <p>
+        To do this:
+        <ul>
+          <li>
+            Open the Developer Tools (F12 or right-click and select "Inspect").
+          </li>
+          <li>Go to the "Console" tab.</li>
+          <li>
+            Uncheck the "Preserve log" option at the top of the Console tab.
+          </li>
+        </ul>
+      </p>
+    </>
   );
-};
+}
 
-export { MyForm };
+export { Function_components };
