@@ -5,12 +5,12 @@ const UsingMemo = React.memo(function ExpensiveComponent({
 }: {
   data: string;
 }) {
-  console.log("Rendering UsingMemo with data:", data);
+  console.log("Rendering Using Memo with data:", data);
   return <div>{data}</div>;
 });
 
 const NotUsingMemo = function ExpensiveComponent({ data }: { data: string }) {
-  console.log("Rendering NotUsingMemo with data:", data);
+  console.log("Rendering Not Using Memo with data:", data);
   return <div>{data}</div>;
 };
 
@@ -33,8 +33,8 @@ const MyForm: React.FC<MyFormProps> = ({ value }) => {
       <h2>Open a new console in the web browser</h2>
 
       <select value={selectedComponent} onChange={handleChange}>
-        <option value="UsingMemo">UsingMemo</option>
-        <option value="NotUsingMemo">NotUsingMemo</option>
+        <option value="UsingMemo">Using Memo</option>
+        <option value="NotUsingMemo">Not Using Memo</option>
       </select>
       <ComponentToRender data={value.toString()} />
     </form>
