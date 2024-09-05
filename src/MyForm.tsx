@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 
-const Using_memo = function ExpensiveComponent({ data }) {
-  console.log("Rendering Not_Using_memo");
-    return <div>{data}</div>;
-};
-
-const Not_Using_memo = React.memo(function ExpensiveComponent({ data }) {
+const Using_memo = React.memo(function ExpensiveComponent({ data }) {
   console.log("Rendering Using_memo");
   return <div>{data}</div>;
 });
+
+const Not_Using_memo = function ExpensiveComponent({ data }) {
+  console.log("Rendering Not_Using_memo");
+
+  return <div>{data}</div>;
+};
 
 const MyForm = function MyForm() {
   const [selectedComponent, setSelectedComponent] = useState("Using_memo");
