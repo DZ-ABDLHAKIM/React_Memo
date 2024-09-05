@@ -1,28 +1,44 @@
-import React from "react";
-import { MyForm } from "./MyForm";
+import React, { useState } from "react";
 
-function Function_components() {
-  const [count, setCount] = React.useState(0);
-  const [data, setData] = React.useState(0);
+const UsingMemo = React.memo(function ExpensiveComponent({
+  data,
+}: {
+  data: string;
+}) {
+  console.log("Rendering UsingMemo with data:", data);
+  return <div>{data}</div>;
+});
 
-  // Function to clear console and reset state
-  const handleReset = () => {
-    console.clear(); // Clear the console
-    setCount(0); // Reset count
-    setData(0); // Reset data
-  };
+const NotUsingMemo = function ExpensiveComponent({ data }: { data: string }) {
+  console.log("Rendering NotUsingMemo with data:", data);
+  return <div>{data}</div>;
+};
 
-  return (
-    <>
-      <MyForm value={data} />
-
-      <button onClick={() => setCount(count + 1)}>
-        Increment Count: {count}
-      </button>
-      <button onClick={() => setData(data + 1)}>Change Data: {data}</button>
-      <button onClick={handleReset}>Reset Everything</button>
-    </>
-  );
+interface MyFormProps {
+  value: number; // Adjust type to match your data
 }
 
-export { Function_components };
+const MyForm: React.FC<MyFormProps> = ({ value }) => {
+  const [selectedComponent, setSelectedComponent] = useState("UsingMemo");
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedComponent(event.target.value);
+  };
+
+  const ComponentToRender =
+    selectedComponent === "UsingMemo" ? UsingMemo : NotUsingMemo;
+
+  return (
+    <form>
+      <h2>Open a new console in the web browser</h2>
+
+      <select value={selectedComponent} onChange={handleChange}>
+        <option value="UsingMemo">UsingMemo</option>
+        <option value="NotUsingMemo">NotUsingMemo</option>
+      </select>
+      <ComponentToRender data={value.toString()} />
+    </form>
+  );
+};
+
+export { MyForm };
