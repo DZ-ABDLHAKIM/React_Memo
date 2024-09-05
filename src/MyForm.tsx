@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
 const Using_memo = function ExpensiveComponent({ data }) {
-  console.log("Rendering Using_memo");
-  return <div>{data}</div>;
+  console.log("Rendering Not_Using_memo");
+    return <div>{data}</div>;
 };
 
 const Not_Using_memo = React.memo(function ExpensiveComponent({ data }) {
-  console.log("Rendering Not_Using_memo");
+  console.log("Rendering Using_memo");
   return <div>{data}</div>;
 });
 
