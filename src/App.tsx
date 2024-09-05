@@ -32,8 +32,9 @@ function Function_components() {
             Open the Developer Tools (F12 or right-click and select "Inspect").
           </li>
           <li>Go to the "Console" tab.</li>
+          <li>Click the gear icon at the top-right of the Console tab.</li>
           <li>
-            Uncheck the "Preserve log" option at the top of the Console tab.
+            Uncheck the "Preserve log" option in the settings that appear.
           </li>
         </ul>
       </p>
