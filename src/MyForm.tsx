@@ -1,34 +1,45 @@
 import React, { useState } from "react";
 
-const Using_memo = React.memo(function ExpensiveComponent({ data }) {
-  console.log("Rendering Using_memo");
+// Component using React.memo
+const UsingMemo = React.memo(function ExpensiveComponent({
+  data,
+}: {
+  data: string;
+}) {
+  console.log("Rendering Using Memo");
   return <div>{data}</div>;
 });
 
-const Not_Using_memo = function ExpensiveComponent({ data }) {
-  console.log("Rendering Not_Using_memo");
+// Component not using React.memo
+const NotUsingMemo = function ExpensiveComponent({ data }: { data: string }) {
+  console.log("Rendering Not Using Memo");
 
   return <div>{data}</div>;
 };
 
-const MyForm = function MyForm() {
-  const [selectedComponent, setSelectedComponent] = useState("Using_memo");
-  const data = "Expensive Data";
+interface MyFormProps {
+  value: number;
+}
 
-  const handleChange = (event) => {
+const MyForm: React.FC<MyFormProps> = ({ value }) => {
+  const [selectedComponent, setSelectedComponent] = useState("UsingMemo");
+  const data = `Expensive Data: ${value}`;
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedComponent(event.target.value);
   };
 
+  // Select component to render based on state
   const ComponentToRender =
-    selectedComponent === "Using_memo" ? Using_memo : Not_Using_memo;
+    selectedComponent === "UsingMemo" ? UsingMemo : NotUsingMemo;
 
   return (
     <form>
-      <h2>open new console in web browser</h2>
+      <h2>Open a new console in the web browser</h2>
 
       <select value={selectedComponent} onChange={handleChange}>
-        <option value="Using_memo">Using_memo</option>
-        <option value="Not_Using_memo">Not_Using_memo</option>
+        <option value="UsingMemo">Using Memo</option>
+        <option value="NotUsingMemo">Not Using Memo</option>
       </select>
       <ComponentToRender data={data} />
     </form>
